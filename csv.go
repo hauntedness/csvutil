@@ -4,18 +4,13 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
-	"os"
+	"io"
 	"strings"
 )
 
-func ReadCsv[T any](filepath string) ([]T, error) {
-	file, err := os.Open(filepath)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	reader := csv.NewReader(file)
-	records, err := reader.ReadAll()
+func ReadCsv[T any](reader io.Reader) ([]T, error) {
+	csv := csv.NewReader(reader)
+	records, err := csv.ReadAll()
 	if err != nil {
 		return nil, err
 	}

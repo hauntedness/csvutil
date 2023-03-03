@@ -1,6 +1,7 @@
 package csvutil
 
 import (
+	"os"
 	"testing"
 )
 
@@ -11,7 +12,13 @@ type Book struct {
 }
 
 func TestCsv(t *testing.T) {
-	books, err := ReadCsv[Book]("./testdata/books.csv")
+	file, err := os.Open("./testdata/books.csv")
+	if err != nil {
+		t.Errorf("Want %v, Got %v", "no error", err)
+		return
+	}
+	defer file.Close()
+	books, err := ReadCsv[Book](file)
 	if err != nil {
 		t.Error("error read csv", err)
 		return

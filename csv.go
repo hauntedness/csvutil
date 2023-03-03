@@ -43,7 +43,7 @@ func ReadCsv[T any](reader io.Reader) ([]T, error) {
 		value := sb.String()
 		err = json.Unmarshal([]byte(value), &objects[i])
 		if err != nil {
-			return nil, fmt.Errorf("error unmarshal json %w at line %d", err, i+1)
+			return nil, fmt.Errorf("error unmarshal at line %d, err: %w", i+1, err)
 		}
 		sb.Reset()
 	}

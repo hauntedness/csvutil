@@ -20,7 +20,7 @@ func TestCsv(t *testing.T) {
 	defer file.Close()
 	books, err := ReadCsv[Book](file)
 	if err != nil {
-		t.Error("error read csv", err)
+		t.Error("error read csv: ", err)
 		return
 	}
 	if len(books) != 4 {
